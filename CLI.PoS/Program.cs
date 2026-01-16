@@ -1,0 +1,58 @@
+﻿using CLI.PoS;
+using CLI.PoS.Model;
+using System;
+
+namespace MyApp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            var itemList = new List<Item>();
+
+            Console.WriteLine("Choose one of the following:");
+            Console.WriteLine("1. Administrator");
+            Console.WriteLine("2. User");
+
+            var choice = Console.ReadLine();
+            if(int.TryParse(choice, out int choiceInt))
+            {
+                switch (choiceInt)
+                {
+                    case 1:
+                        Console.WriteLine("Admin Menu");
+
+                        Console.WriteLine("Name:");
+                        var name = Console.ReadLine();
+                        Console.WriteLine("Description:");
+                        var description = Console.ReadLine();
+
+                        var item = new Item { 
+                        Name = name, Description = description
+                        };
+
+                        Console.WriteLine(item);
+
+
+                        break;
+                    case 2:
+                        Console.WriteLine("User Menu");
+                        break;
+                    default:
+                        Console.WriteLine("ERROR: Unknown User Type");
+                        break;
+                }
+
+               
+            }
+
+
+            
+        }
+    
+        static void PrintStudentMenu()
+        {
+
+        }
+    }
+}
