@@ -27,8 +27,11 @@ namespace MyApp
                         Console.WriteLine("Description:");
                         var description = Console.ReadLine();
 
+                        Console.WriteLine("Price:");
+                        var price = Console.ReadLine();
+
                         var item = new Item { 
-                        Name = name, Description = description
+                        Name = name, Description = description, Price = decimal.Parse(price)
                         };
 
                         Console.WriteLine(item);
