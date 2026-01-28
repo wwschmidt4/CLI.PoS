@@ -22,21 +22,58 @@ namespace MyApp
                 {
                     case 1:
                         Console.WriteLine("Admin Menu");
+                        Console.WriteLine("C. Create New Menu Item");
+                        Console.WriteLine("U. Edit Menu Item");
 
-                        Console.WriteLine("Name:");
-                        var name = Console.ReadLine();
-                        Console.WriteLine("Description:");
-                        var description = Console.ReadLine();
+                        var subChoice = Console.ReadLine();
+                        if (subChoice.Equals("C", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            Console.WriteLine("Name:");
+                            var name = Console.ReadLine();
+                            Console.WriteLine("Description:");
+                            var description = Console.ReadLine();
 
-                        Console.WriteLine("Price:");
-                        var price = Console.ReadLine();
+                            Console.WriteLine("Price:");
+                            var price = Console.ReadLine();
 
-                        var item = new Item { 
-                        Name = name, Description = description, Price = decimal.Parse(price)
-                        };
-                        ItemServiceProxy.Current.Add(item);
+                            var item = new Item
+                            {
+                                Name = name,
+                                Description = description,
+                                Price = decimal.Parse(price)
+                            };
+                            ItemServiceProxy.Current.AddOrUpdate(item);
 
-                        Console.WriteLine(item);
+                            Console.WriteLine(item);
+                        } else if(subChoice.Equals("U", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            //display the items in their current state
+                            list.ForEach(Console.WriteLine);
+
+                            //let a user choose which one to update
+                            var editChoice = int.Parse(Console.ReadLine() ?? "0");
+                            var itemToEdit = list.FirstOrDefault(i => i.Id == editChoice);
+
+                            if (itemToEdit != null)
+                            {
+                                //make the update
+                                Console.WriteLine("New Name:");
+                                var newName = Console.ReadLine();
+                                if (!string.IsNullOrEmpty(newName))
+                                {
+                                    itemToEdit.Name = newName;
+                                }
+                                Console.WriteLine("New Price:");
+                                var newPrice = Console.ReadLine();
+                                if (!string.IsNullOrEmpty(newPrice))
+                                {
+                                    itemToEdit.Price = decimal.Parse(newPrice);
+                                }
+
+
+                                ItemServiceProxy.Current.AddOrUpdate(itemToEdit);
+                            }
+                        }
                         break;
                     case 2:
                         Console.WriteLine("User Menu");
