@@ -19,8 +19,14 @@ namespace Maui.PoS.ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public Item? SelectedItem { get; set;  }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void Delete()
+        {
+            ItemServiceProxy.Current.Delete(SelectedItem);
+            Refresh();
+        }
         public void Refresh()
         {
             NotifyPropertyChanged("Items");

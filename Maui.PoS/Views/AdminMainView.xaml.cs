@@ -1,3 +1,4 @@
+using Library.PoS.Services;
 using Maui.PoS.ViewModels;
 
 namespace Maui.PoS.Views;
@@ -19,6 +20,15 @@ public partial class AdminMainView : ContentPage
     private void InlineDeleteClicked(object sender, EventArgs e)
     {
 
+    }
+
+    private void DeleteClicked(object sender, EventArgs e)
+    {
+        var context = (BindingContext as AdminMainViewViewModel);
+        if(context != null)
+        {
+            context.Delete();
+        }
     }
 
     private void AddNewClicked(object sender, EventArgs e)
