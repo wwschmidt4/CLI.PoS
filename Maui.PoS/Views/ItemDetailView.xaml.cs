@@ -14,13 +14,13 @@ public partial class ItemDetailView : ContentPage
 
     private void GoBackClicked(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("//AdminMenu");
+        Shell.Current.GoToAsync("//ItemMenu");
     }
 
     private void OkClicked(object sender, EventArgs e)
     {
         ItemServiceProxy.Current.AddOrUpdate(BindingContext as Item);
-        Shell.Current.GoToAsync("//AdminMenu");
+        Shell.Current.GoToAsync("//ItemMenu");
     }
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
