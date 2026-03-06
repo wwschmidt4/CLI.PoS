@@ -25,6 +25,8 @@ namespace Library.PoS.Model
         public List<DateTime> StatusChanges {  get; set; }
         public bool? IsReserved { get; set;  }
         public int Id { get; set; }
+
+        public List<TableState> PossibleStates => new List<TableState> { TableState.Ready, TableState.Assigned, TableState.Dirty };
     }
 
     public enum TableState
