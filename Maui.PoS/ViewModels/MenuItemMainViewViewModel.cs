@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Maui.PoS.ViewModels
 {
-    internal class MenuItemMainViewViewModel
+    internal class MenuItemMainViewViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<Item> Items
         {
@@ -31,6 +31,8 @@ namespace Maui.PoS.ViewModels
         {
             NotifyPropertyChanged("Items");
         }
+
+
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
