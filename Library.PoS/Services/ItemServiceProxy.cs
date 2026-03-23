@@ -1,4 +1,6 @@
 ﻿using CLI.PoS.Model;
+using Library.eCommerce.Utilities;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -51,11 +53,14 @@ namespace Library.PoS.Services
             }
         }
         private ItemServiceProxy() {
-            items = new List<Item> { 
-                new Item{ Id = 1, Name = "Something 1", Description="This is a test description", Price = 1 }
-                , new Item{ Id = 2, Name = "Something 2", Price = 2 }
-                , new Item{ Id = 3, Name = "Something 3", Price = 3 } 
-            };
+            //items = new List<Item> { 
+            //    new Item{ Id = 1, Name = "Something 1", Description="This is a test description", Price = 1 }
+            //    , new Item{ Id = 2, Name = "Something 2", Price = 2 }
+            //    , new Item{ Id = 3, Name = "Something 3", Price = 3 } 
+            //};
+
+            var stringFromAPI = new WebRequestHandler().Get("/MenuItem").Result;
+            items = JsonConvert.DeserializeObject<List<Item>>(stringFromAPI) ?? new List<Item>();
         }
 
         public void AddOrUpdate(Item? item)
