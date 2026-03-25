@@ -1,7 +1,5 @@
-using API.CLI.Database;
 using API.CLI.Enterprise;
 using CLI.PoS.Model;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.CLI.Controllers
@@ -21,6 +19,12 @@ namespace API.CLI.Controllers
         public Item? Delete(int id)
         {
             return new MenuItemEC().Delete(id);
+        }
+
+        [HttpPost]
+        public Item? AddOrUpdate([FromBody] Item item)
+        {
+            return new MenuItemEC().AddOrUpdate(item);
         }
     }
 }

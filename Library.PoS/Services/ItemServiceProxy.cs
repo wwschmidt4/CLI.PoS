@@ -63,19 +63,30 @@ namespace Library.PoS.Services
             items = JsonConvert.DeserializeObject<List<Item>>(stringFromAPI) ?? new List<Item>();
         }
 
-        public void AddOrUpdate(Item? item)
+        public Item? AddOrUpdate(Item? item)
         {
             if (item == null)
             {
-                return;
+                return null;
             }
 
-            if(item.Id == 0)
+            var stringFromAPI = new WebRequestHandler().Post("/MenuItem", item).Result;
+            var itemFromAPI = JsonConvert.DeserializeObject<Item>(stringFromAPI);
+
+            var existingItem = items.FirstOrDefault(i => i.Id == (itemFromAPI?.Id ?? 0));
+
+            if (existingItem != null && itemFromAPI != null)
             {
-                item.Id = NextKey;
-                Items.Add(item);
+                //update the item
+                var index = items.IndexOf(existingItem);
+                items.RemoveAt(index);
+                items.Insert(index, itemFromAPI);
+            } else if(itemFromAPI != null) {
+                //add the item
+                items.Add(itemFromAPI);
             }
 
+                return itemFromAPI ?? item;
         }
 
         public Item? Delete(Item? item)
@@ -91,17 +102,6 @@ namespace Library.PoS.Services
             return item;
         }
 
-        public int NextKey
-        {
-            get
-            {
-                if(Items.Any())
-                {
-                    return Items.Select(i => i.Id).Max() + 1;
-                }
-                return 1;
-            }
-        }
 
     }
 }

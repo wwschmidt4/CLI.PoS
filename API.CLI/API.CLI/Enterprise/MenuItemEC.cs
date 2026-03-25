@@ -18,5 +18,29 @@ namespace API.CLI.Enterprise
             }
             return item;
         }
+
+        public Item? AddOrUpdate(Item item)
+        {
+
+            if (item.Id == 0)
+            {
+                item.Id = NextKey;
+                FakeDatabase.Current.MenuItems.Add(item);
+            }
+
+            return item;
+        }
+
+        public int NextKey
+        {
+            get
+            {
+                if (Items.Any())
+                {
+                    return Items.Select(i => i.Id).Max() + 1;
+                }
+                return 1;
+            }
+        }
     }
 }
