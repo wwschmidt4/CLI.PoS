@@ -7,6 +7,16 @@ namespace API.CLI.Enterprise
     {
         public MenuItemEC() { }
 
-        public IEnumerable<Item> Items => FakeDatabase.MenuItems;
+        public IEnumerable<Item> Items => FakeDatabase.Current.MenuItems;
+
+        public Item? Delete(int id)
+        {
+            var item = FakeDatabase.Current.MenuItems.FirstOrDefault(i => i.Id == id);
+            if (item != null)
+            {
+                FakeDatabase.Current.MenuItems.Remove(item);
+            }
+            return item;
+        }
     }
 }

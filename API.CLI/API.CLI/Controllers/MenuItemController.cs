@@ -16,5 +16,11 @@ namespace API.CLI.Controllers
         {
             return new MenuItemEC().Items;
         }
+
+        [HttpDelete("{id}")]
+        public Item? Delete(int id)
+        {
+            return new MenuItemEC().Delete(id);
+        }
     }
 }
