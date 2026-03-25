@@ -85,6 +85,7 @@ namespace Library.PoS.Services
                 return null;
             }
 
+            var stringResponse = new WebRequestHandler().Delete($"/MenuItem/{item.Id}").Result;
             items.Remove(item);
 
             return item;
